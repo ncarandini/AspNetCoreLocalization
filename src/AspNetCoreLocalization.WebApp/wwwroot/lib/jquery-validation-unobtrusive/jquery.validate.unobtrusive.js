@@ -295,6 +295,15 @@
             var min = options.params.min,
                 max = options.params.max;
 
+            if (min && options.element.type === "date")
+            {
+                min = new Date(min).getTime();
+            }
+
+            if (max && options.element.type === "date") {
+                max = new Date(max).getTime();
+            }
+
             if (min && max) {
                 setValidationValues(options, minMaxRuleName, [min, max]);
             }

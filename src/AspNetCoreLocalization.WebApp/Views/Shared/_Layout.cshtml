@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Globalization;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -42,7 +44,15 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - AspNetCoreLocalization.WebApp</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2017 - AspNetCoreLocalization.WebApp</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right">Region: @CultureInfo.CurrentCulture.Name</p>
+                </div>
+            </div>
+            
         </footer>
     </div>
 
@@ -50,13 +60,6 @@
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
-
-        <script src="~/lib/cldrjs/dist/cldr.js"></script>
-        <script src="~/lib/cldrjs/dist/cldr/event.js"></script>
-        <script src="~/lib/cldrjs/dist/cldr/supplemental.js"></script>
-        <script src="~/lib/globalize/dist/globalize.js"></script>
-        <script src="~/lib/globalize/dist/globalize/number.js"></script>
-        <script src="~/lib/globalize/dist/globalize/date.js"></script>
     </environment>
 
     <environment names="Staging,Production">
@@ -71,33 +74,7 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
-    <script>
-      @{
-        var culture = "it";
-      }
-
-      $(function () {
-        $.when(
-          $.get('@Url.Content("~/cldr/supplemental/likelySubtags.json")')
-            .success(function (data) { Globalize.load(data); }),
-          $.get('@Url.Content($"~/cldr/main/{culture}/numbers.json")')
-            .success(function (data) { Globalize.load(data); }),
-          $.get('@Url.Content("~/cldr/supplemental/numberingSystems.json")')
-            .success(function (data) { Globalize.load(data); }),
-          $.get('@Url.Content($"~/cldr/main/{culture}/ca-gregorian.json")')
-            .success(function (data) { Globalize.load(data); }),
-          $.get('@Url.Content($"~/cldr/main/{culture}/timeZoneNames.json")')
-            .success(function (data) { Globalize.load(data); }),
-          $.get('@Url.Content("~/cldr/supplemental/timeData.json")')
-            .success(function (data) { Globalize.load(data); }),
-          $.get('@Url.Content("~/cldr/supplemental/weekData.json")')
-            .success(function (data) { Globalize.load(data); })
-          ).then(function () {
-            Globalize.locale('@culture');
-          });
-      })
-    </script>
-
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
