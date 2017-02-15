@@ -27,6 +27,7 @@ namespace AspNetCoreLocalization.WebApp.Controllers
         {
             var createItemViewModel = new CreateItemViewModel
             {
+                Description = "Item A",
                 Quantity = 1,
                 UnitPrice = 1.00M,
                 StartDate = DateTimeOffset.Now,
@@ -40,7 +41,9 @@ namespace AspNetCoreLocalization.WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,Description,Quantity,UnitPrice,StartDate,EndDate")] CreateItemViewModel createItemViewModel)
+        public IActionResult Create(
+            [Bind("Id,Description,Quantity,UnitPrice,StartDate,EndDate")]
+            CreateItemViewModel createItemViewModel)
         {
             if (ModelState.IsValid)
             {
